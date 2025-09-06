@@ -1,0 +1,9 @@
+QuestStorage::getQuest
+├── when quest exists
+│   ├── it should return correct quest data.
+│   ├── it should return matching id field.
+│   ├── it should return correct reward amount.
+│   ├── it should return correct token address.
+│   └── it should return correct expiry timestamp.
+└── when quest does not exist
+    └── it should return empty Quest struct.

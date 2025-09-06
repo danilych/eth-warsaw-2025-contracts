@@ -1,0 +1,10 @@
+Claimer::updateVault
+├── when caller is not owner
+│   └── it should revert with Ownable error.
+├── when vault address is zero
+│   └── it should revert with UnacceptableAddress.
+└── when vault address is valid
+    ├── it should update vault state variable.
+    ├── it should emit VaultUpdated event.
+    └── when setting same vault address
+        └── it should update and emit event normally.

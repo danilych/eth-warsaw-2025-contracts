@@ -1,0 +1,10 @@
+Claimer::updateManager
+├── when caller is not owner
+│   └── it should revert with Ownable error.
+├── when manager address is zero
+│   └── it should revert with UnacceptableAddress.
+└── when manager address is valid
+    ├── it should update manager state variable.
+    ├── it should emit ManagerUpdated event.
+    └── when setting same manager address
+        └── it should update and emit event normally.

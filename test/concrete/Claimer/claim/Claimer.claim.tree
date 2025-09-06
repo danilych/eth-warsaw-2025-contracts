@@ -1,0 +1,19 @@
+Claimer::claim
+├── when quest does not exist
+│   └── it should revert with UnacceptableId.
+├── when signature is invalid
+│   └── it should revert with UnacceptableSignature.
+├── when signature is from wrong signer
+│   └── it should revert with UnacceptableSignature.
+├── when vault has insufficient tokens
+│   └── it should revert with ERC20 transfer error.
+├── when quest is expired
+│   ├── it should process claim normally.
+│   └── it should not validate expiry in claim function.
+└── when all parameters are valid
+    ├── it should verify EIP712 signature correctly.
+    ├── it should call vault claimToken.
+    ├── it should transfer tokens to caller.
+    ├── it should emit Claimed event.
+    └── when multiple claims for same quest
+        └── it should process each claim independently.

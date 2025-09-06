@@ -1,0 +1,17 @@
+Vault::claimToken
+├── when caller lacks CLAIMER_ROLE
+│   └── it should revert with AccessControl error.
+├── when token address is zero
+│   └── it should revert with UnacceptableAddress.
+├── when amount is zero
+│   └── it should revert with UnacceptableAmount.
+├── when vault has insufficient token balance
+│   └── it should revert with ERC20 transfer error.
+├── when token transfer fails
+│   └── it should revert with token-specific error.
+└── when all parameters are valid
+    ├── it should transfer tokens from vault to caller.
+    ├── it should emit TokenClaimed event.
+    ├── it should reduce vault token balance.
+    └── when multiple claims occur
+        └── it should process each claim independently.

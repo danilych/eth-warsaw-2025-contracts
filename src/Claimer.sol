@@ -23,7 +23,7 @@ contract Claimer is Ownable, EIP712 {
     event QuestStorageUpdated(address indexed questStorage);
     event Claimed(address indexed user, address indexed token, uint256 amount, uint256 timestamp);
 
-    constructor(address initialOwner, IVault vault_, address manager_, IQuestStorage questStorage_)
+    constructor(address initialOwner, address manager_, IVault vault_, IQuestStorage questStorage_)
         Ownable(initialOwner)
         EIP712("Claimer", "1")
     {

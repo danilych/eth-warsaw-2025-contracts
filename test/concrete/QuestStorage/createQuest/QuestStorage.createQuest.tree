@@ -1,0 +1,20 @@
+QuestStorage::createQuest
+├── when caller lacks MANAGER_ROLE
+│   └── it should revert with AccessControl error.
+├── when quest id is empty
+│   └── it should revert with UnacceptableId.
+├── when reward is zero
+│   └── it should revert with UnacceptableReward.
+├── when token address is zero
+│   └── it should revert with UnacceptableAddress.
+├── when expiry is in the past
+│   └── it should revert with UnacceptableExpiry.
+├── when expiry equals block timestamp
+│   └── it should revert with UnacceptableExpiry.
+├── when all parameters are valid
+│   ├── it should store quest in mapping.
+│   ├── it should emit QuestCreated event.
+│   └── when quest id already exists
+│       └── it should overwrite existing quest.
+└── when creating multiple quests
+    └── it should handle each quest independently.

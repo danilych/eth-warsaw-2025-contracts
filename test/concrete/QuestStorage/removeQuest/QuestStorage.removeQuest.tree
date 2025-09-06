@@ -1,0 +1,9 @@
+QuestStorage::removeQuest
+├── when caller lacks MANAGER_ROLE
+│   └── it should revert with AccessControl error.
+├── when quest exists
+│   ├── it should delete quest from mapping.
+│   ├── it should emit QuestRemoved event.
+│   └── it should make getQuest return empty struct.
+└── when quest does not exist
+    └── it should emit QuestRemoved event without reverting.

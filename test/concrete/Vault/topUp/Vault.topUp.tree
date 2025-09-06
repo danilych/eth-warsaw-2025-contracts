@@ -1,0 +1,17 @@
+Vault::topUp
+├── when token address is zero
+│   └── it should revert with UnacceptableAddress.
+├── when amount is zero
+│   └── it should revert with UnacceptableAmount.
+├── when caller has insufficient token balance
+│   └── it should revert with ERC20 transfer error.
+├── when caller has insufficient allowance
+│   └── it should revert with ERC20 allowance error.
+├── when token transfer fails
+│   └── it should revert with token-specific error.
+└── when all parameters are valid
+    ├── it should transfer tokens from caller to vault.
+    ├── it should emit ToppedUp event.
+    ├── it should update vault token balance.
+    └── when multiple topUps occur
+        └── it should accumulate tokens correctly.

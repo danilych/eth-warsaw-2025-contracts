@@ -1,0 +1,10 @@
+Claimer::updateQuestStorage
+├── when caller is not owner
+│   └── it should revert with Ownable error.
+├── when questStorage address is zero
+│   └── it should revert with UnacceptableAddress.
+└── when questStorage address is valid
+    ├── it should update questStorage state variable.
+    ├── it should emit QuestStorageUpdated event.
+    └── when setting same questStorage address
+        └── it should update and emit event normally.
