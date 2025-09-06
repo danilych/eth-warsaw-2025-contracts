@@ -9,6 +9,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Errors} from "./libs/Errors.sol";
 import {IVault} from "./interfaces/IVault.sol";
 import {IQuestStorage} from "./interfaces/IQuestStorage.sol";
+import {IRewardProcessor} from "./interfaces/IRewardProcessor.sol";
 import {Types} from "./libs/Types.sol";
 
 contract Claimer is Ownable, EIP712 {
@@ -17,26 +18,32 @@ contract Claimer is Ownable, EIP712 {
     address public manager;
     IVault public vault;
     IQuestStorage public questStorage;
+    IRewardProcessor public rewardProcessor;
 
     event VaultUpdated(address indexed vault);
     event ManagerUpdated(address indexed manager);
     event QuestStorageUpdated(address indexed questStorage);
+    event RewardProcessorUpdated(address indexed rewardProcessor);
     event Claimed(string indexed questId, address indexed user, address indexed token, uint256 amount, uint256 timestamp);
 
-    constructor(address initialOwner, address manager_, IVault vault_, IQuestStorage questStorage_)
+    constructor(address initialOwner, address manager_, IVault vault_, IQuestStorage questStorage_, IRewardProcessor rewardProcessor_)
         Ownable(initialOwner)
         EIP712("Claimer", "1")
     {
         require(address(vault_) != address(0), Errors.UnacceptableAddress(address(vault_)));
         require(address(manager_) != address(0), Errors.UnacceptableAddress(address(manager_)));
         require(address(questStorage_) != address(0), Errors.UnacceptableAddress(address(questStorage_)));
+        require(address(rewardProcessor_) != address(0), Errors.UnacceptableAddress(address(rewardProcessor_)));
 
         vault = vault_;
         manager = manager_;
         questStorage = questStorage_;
+        rewardProcessor = rewardProcessor_;
+
         emit VaultUpdated(address(vault_));
         emit ManagerUpdated(manager_);
         emit QuestStorageUpdated(address(questStorage_));
+        emit RewardProcessorUpdated(address(rewardProcessor_));
     }
 
     function updateVault(IVault vault_) external onlyOwner {
@@ -73,7 +80,7 @@ contract Claimer is Ownable, EIP712 {
         }
 
         // Calculating rewards
-        uint256 rewards = quest.reward;
+        uint256 rewards = rewardProcessor.calculateReward(quest.reward, false, true);
 
         require(verifySignature(questId, msg.sender, signature), Errors.UnacceptableSignature(signature));
 

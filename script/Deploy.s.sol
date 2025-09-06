@@ -6,6 +6,7 @@ import {USDT} from "src/samples/USDT.sol";
 import {Vault} from "src/Vault.sol";
 import {QuestStorage} from "src/QuestStorage.sol";
 import {Claimer} from "src/Claimer.sol";
+import { IRewardProcessor } from "src/interfaces/IRewardProcessor.sol";
 
 
 contract USDTScript is Script {
@@ -13,16 +14,20 @@ contract USDTScript is Script {
     Vault public vault;
     QuestStorage public questStorage;
     Claimer public claimer;
+    IRewardProcessor public rewardProcessor;
+    
 
     function run() public {
         vm.startBroadcast();
+
+        rewardProcessor = IRewardProcessor(0xA6d0F9f9F25aE1A4a878D1b6345bb8fce836fd89);
 
         usdt = new USDT(msg.sender);
         usdt.mint(msg.sender, 1000000 ether);
 
         vault = new Vault(msg.sender);
         questStorage = new QuestStorage(msg.sender);
-        claimer = new Claimer(msg.sender, msg.sender, vault, questStorage);
+        claimer = new Claimer(msg.sender, msg.sender, vault, questStorage, rewardProcessor);
 
         questStorage.grantRole(questStorage.MANAGER_ROLE(), msg.sender);
         vault.grantRole(vault.CLAIMER_ROLE(), address(claimer));
