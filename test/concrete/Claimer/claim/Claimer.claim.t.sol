@@ -6,7 +6,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Claimerclaim is ClaimerTest {
     // Import events from Claimer
-    event Claimed(address indexed user, address indexed token, uint256 amount, uint256 timestamp);
+    event Claimed(string indexed questId, address indexed user, address indexed token, uint256 amount, uint256 timestamp);
     
     function setUp() external {
         fixture();
@@ -117,7 +117,7 @@ contract Claimerclaim is ClaimerTest {
         uint256 initialVaultBalance = usdt.balanceOf(address(vault));
         
         vm.expectEmit(true, true, false, true);
-        emit Claimed(alice, address(usdt), QUEST_REWARD, block.timestamp);
+        emit Claimed(noExpiryQuest, alice, address(usdt), QUEST_REWARD, block.timestamp);
         
         vm.prank(alice);
         claimer.claim(noExpiryQuest, signature);
@@ -143,7 +143,7 @@ contract Claimerclaim is ClaimerTest {
         uint256 initialVaultBalance = usdt.balanceOf(address(vault));
         
         vm.expectEmit(true, true, false, true);
-        emit Claimed(alice, address(usdt), QUEST_REWARD, block.timestamp);
+        emit Claimed(QUEST_ID, alice, address(usdt), QUEST_REWARD, block.timestamp);
         
         vm.prank(alice);
         claimer.claim(QUEST_ID, signature);
@@ -160,14 +160,14 @@ contract Claimerclaim is ClaimerTest {
         // First claim by alice
         bytes memory aliceSignature = _generateValidSignature(QUEST_ID, alice);
         vm.expectEmit(true, true, false, true);
-        emit Claimed(alice, address(usdt), QUEST_REWARD, block.timestamp);
+        emit Claimed(QUEST_ID, alice, address(usdt), QUEST_REWARD, block.timestamp);
         vm.prank(alice);
         claimer.claim(QUEST_ID, aliceSignature);
         
         // Second claim by bob for same quest
         bytes memory bobSignature = _generateValidSignature(QUEST_ID, bob);
         vm.expectEmit(true, true, false, true);
-        emit Claimed(bob, address(usdt), QUEST_REWARD, block.timestamp);
+        emit Claimed(QUEST_ID, bob, address(usdt), QUEST_REWARD, block.timestamp);
         vm.prank(bob);
         claimer.claim(QUEST_ID, bobSignature);
         

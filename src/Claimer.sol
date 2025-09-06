@@ -21,7 +21,7 @@ contract Claimer is Ownable, EIP712 {
     event VaultUpdated(address indexed vault);
     event ManagerUpdated(address indexed manager);
     event QuestStorageUpdated(address indexed questStorage);
-    event Claimed(address indexed user, address indexed token, uint256 amount, uint256 timestamp);
+    event Claimed(string indexed questId, address indexed user, address indexed token, uint256 amount, uint256 timestamp);
 
     constructor(address initialOwner, address manager_, IVault vault_, IQuestStorage questStorage_)
         Ownable(initialOwner)
@@ -81,7 +81,7 @@ contract Claimer is Ownable, EIP712 {
 
         IERC20(quest.rewardToken).transfer(msg.sender, rewards);
 
-        emit Claimed(msg.sender, address(quest.rewardToken), rewards, block.timestamp);
+        emit Claimed(questId, msg.sender, address(quest.rewardToken), rewards, block.timestamp);
     }
 
     function verifySignature(string memory questId, address user, bytes memory signature)

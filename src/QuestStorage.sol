@@ -58,6 +58,8 @@ contract QuestStorage is AccessControl, IQuestStorage {
             require(_startsAt <= block.timestamp, Errors.QuestNotStarted(_id));
         }
 
+        // TODO: revert if quest with given id already exists
+
         quests[_id] = Types.Quest({id: _id, reward: _reward, rewardToken: _rewardToken, expiry: _expiry, startsAt: _startsAt});
 
         emit QuestCreated(_id, _reward, _rewardToken, _expiry, _startsAt);
@@ -70,6 +72,8 @@ contract QuestStorage is AccessControl, IQuestStorage {
 
         emit QuestRemoved(_id);
     }
+
+    // TODO: add quest editing
 
     /// @notice Gets a quest.
     /// @param _id Quest id. UUID.
