@@ -9,4 +9,5 @@ library Errors {
     error UnacceptableAmount(uint256 amount);
     error UnacceptableSignature(bytes signature);
     error QuestExpired(string id);
+    error QuestNotStarted(string id);
 }

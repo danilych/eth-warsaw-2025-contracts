@@ -9,5 +9,6 @@ library Types {
         uint256 reward;
         IERC20 rewardToken;
         uint32 expiry;
+        uint32 startsAt;
     }
 }

@@ -23,7 +23,8 @@ contract QuestStorage is AccessControl, IQuestStorage {
     /// @param reward Quest reward.
     /// @param rewardToken Quest reward token.
     /// @param expiry Quest expiry.
-    event QuestCreated(string id, uint256 reward, IERC20 rewardToken, uint32 expiry);
+    /// @param startsAt Quest start time.
+    event QuestCreated(string id, uint256 reward, IERC20 rewardToken, uint32 expiry, uint32 startsAt);
 
     /// @notice Event emitted when a quest is removed.
     /// @param id Quest id. UUID.
@@ -42,7 +43,8 @@ contract QuestStorage is AccessControl, IQuestStorage {
     /// @param _reward Quest reward.
     /// @param _rewardToken Quest reward token.
     /// @param _expiry Quest expiry.
-    function createQuest(string memory _id, uint256 _reward, IERC20 _rewardToken, uint32 _expiry)
+    /// @param _startsAt Quest start time.
+    function createQuest(string memory _id, uint256 _reward, IERC20 _rewardToken, uint32 _expiry, uint32 _startsAt)
         external
         onlyRole(MANAGER_ROLE)
     {
@@ -52,10 +54,13 @@ contract QuestStorage is AccessControl, IQuestStorage {
         if (_expiry != 0) {
             require(_expiry > block.timestamp, Errors.UnacceptableExpiry(_expiry));
         }
+        if (_startsAt != 0) {
+            require(_startsAt <= block.timestamp, Errors.QuestNotStarted(_id));
+        }
 
-        quests[_id] = Types.Quest({id: _id, reward: _reward, rewardToken: _rewardToken, expiry: _expiry});
+        quests[_id] = Types.Quest({id: _id, reward: _reward, rewardToken: _rewardToken, expiry: _expiry, startsAt: _startsAt});
 
-        emit QuestCreated(_id, _reward, _rewardToken, _expiry);
+        emit QuestCreated(_id, _reward, _rewardToken, _expiry, _startsAt);
     }
 
     /// @notice Removes a quest.

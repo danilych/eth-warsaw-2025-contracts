@@ -20,6 +20,7 @@ contract ClaimerTest is Test {
     string internal constant QUEST_ID = "550e8400-e29b-41d4-a716-446655440000";
     uint256 internal constant QUEST_REWARD = 1000e18;
     uint32 internal questExpiry;
+    uint32 internal questStartsAt;
     
     // EIP712 signature components
     uint256 internal managerPrivateKey = 0x123456789;
@@ -47,6 +48,8 @@ contract ClaimerTest is Test {
         
         // Set expiry to 1 hour in the future
         questExpiry = uint32(block.timestamp + 3600);
+        // Set start time to current timestamp
+        questStartsAt = uint32(block.timestamp);
         
         // Top up vault with tokens
         vm.prank(deployer);
@@ -55,7 +58,7 @@ contract ClaimerTest is Test {
 
     function _createQuest() internal returns (string memory) {
         vm.prank(deployer);
-        questStorage.createQuest(QUEST_ID, QUEST_REWARD, IERC20(usdt), questExpiry);
+        questStorage.createQuest(QUEST_ID, QUEST_REWARD, IERC20(usdt), questExpiry, questStartsAt);
         return QUEST_ID;
     }
 

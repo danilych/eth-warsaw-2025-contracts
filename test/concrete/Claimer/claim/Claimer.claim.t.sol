@@ -76,7 +76,7 @@ contract Claimerclaim is ClaimerTest {
         uint256 largeReward = usdt.balanceOf(address(vault)) + 1000e18; // More than vault has
         
         vm.prank(deployer);
-        questStorage.createQuest(largeRewardQuest, largeReward, IERC20(usdt), questExpiry);
+        questStorage.createQuest(largeRewardQuest, largeReward, IERC20(usdt), questExpiry, questStartsAt);
         
         bytes memory signature = _generateValidSignature(largeRewardQuest, alice);
         
@@ -110,7 +110,7 @@ contract Claimerclaim is ClaimerTest {
         
         // Create quest with zero expiry (no end date)
         vm.prank(deployer);
-        questStorage.createQuest(noExpiryQuest, QUEST_REWARD, IERC20(usdt), zeroExpiry);
+        questStorage.createQuest(noExpiryQuest, QUEST_REWARD, IERC20(usdt), zeroExpiry, questStartsAt);
         
         bytes memory signature = _generateValidSignature(noExpiryQuest, alice);
         uint256 initialAliceBalance = usdt.balanceOf(alice);

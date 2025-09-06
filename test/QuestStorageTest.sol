@@ -15,6 +15,7 @@ contract QuestStorageTest is Test {
     string internal constant EMPTY_QUEST_ID = "";
     uint256 internal constant QUEST_REWARD = 1000e18;
     uint32 internal questExpiry;
+    uint32 internal questStartsAt;
 
     function fixture() public {
         vm.startPrank(deployer);
@@ -24,6 +25,8 @@ contract QuestStorageTest is Test {
         
         // Set expiry to 1 hour in the future
         questExpiry = uint32(block.timestamp + 3600);
+        // Set start time to current timestamp
+        questStartsAt = uint32(block.timestamp);
         
         // Grant MANAGER_ROLE to deployer for testing
         // deployer already has DEFAULT_ADMIN_ROLE from constructor
@@ -34,7 +37,7 @@ contract QuestStorageTest is Test {
 
     function _createValidQuest() internal returns (string memory) {
         vm.prank(deployer);
-        questStorage.createQuest(QUEST_ID, QUEST_REWARD, IERC20(usdt), questExpiry);
+        questStorage.createQuest(QUEST_ID, QUEST_REWARD, IERC20(usdt), questExpiry, questStartsAt);
         return QUEST_ID;
     }
 

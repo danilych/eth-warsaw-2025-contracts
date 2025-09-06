@@ -67,6 +67,10 @@ contract Claimer is Ownable, EIP712 {
         if(quest.expiry != 0) {
             require(quest.expiry > block.timestamp, Errors.QuestExpired(quest.id));
         }
+        
+        if(quest.startsAt != 0) {
+            require(quest.startsAt <= block.timestamp, Errors.QuestNotStarted(quest.id));
+        }
 
         // Calculating rewards
         uint256 rewards = quest.reward;
