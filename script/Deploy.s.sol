@@ -27,6 +27,9 @@ contract USDTScript is Script {
         questStorage.grantRole(questStorage.MANAGER_ROLE(), msg.sender);
         vault.grantRole(vault.CLAIMER_ROLE(), address(claimer));
 
+        usdt.approve(address(vault), 1000000 ether);
+        vault.topUp(usdt, 1000000 ether);
+
         console.log("USDT deployed to:", address(usdt));
         console.log("Vault deployed to:", address(vault));
         console.log("QuestStorage deployed to:", address(questStorage));
