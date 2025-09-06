@@ -8,4 +8,5 @@ library Errors {
     error UnacceptableExpiry(uint32 expiry);
     error UnacceptableAmount(uint256 amount);
     error UnacceptableSignature(bytes signature);
+    error QuestExpired(string id);
 }

@@ -11,6 +11,8 @@ QuestStorage::createQuest
 │   └── it should revert with UnacceptableExpiry.
 ├── when expiry equals block timestamp
 │   └── it should revert with UnacceptableExpiry.
+├── when expiry is zero (no end date)
+│   └── it should create quest without expiry validation.
 ├── when all parameters are valid
 │   ├── it should store quest in mapping.
 │   ├── it should emit QuestCreated event.

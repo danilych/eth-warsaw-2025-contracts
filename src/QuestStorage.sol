@@ -49,7 +49,9 @@ contract QuestStorage is AccessControl, IQuestStorage {
         require(bytes(_id).length != 0, Errors.UnacceptableId(_id));
         require(_reward > 0, Errors.UnacceptableReward(_reward));
         require(address(_rewardToken) != address(0), Errors.UnacceptableAddress(address(_rewardToken)));
-        require(_expiry > block.timestamp, Errors.UnacceptableExpiry(_expiry));
+        if (_expiry != 0) {
+            require(_expiry > block.timestamp, Errors.UnacceptableExpiry(_expiry));
+        }
 
         quests[_id] = Types.Quest({id: _id, reward: _reward, rewardToken: _rewardToken, expiry: _expiry});
 

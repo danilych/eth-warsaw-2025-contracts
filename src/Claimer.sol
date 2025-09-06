@@ -63,6 +63,10 @@ contract Claimer is Ownable, EIP712 {
     function claim(string memory questId, bytes memory signature) external {
         Types.Quest memory quest = questStorage.getQuest(questId);
         require(bytes(quest.id).length > 0, Errors.UnacceptableId(questId));
+        
+        if(quest.expiry != 0) {
+            require(quest.expiry > block.timestamp, Errors.QuestExpired(quest.id));
+        }
 
         // Calculating rewards
         uint256 rewards = quest.reward;

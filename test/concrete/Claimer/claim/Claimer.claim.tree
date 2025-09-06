@@ -8,8 +8,9 @@ Claimer::claim
 ├── when vault has insufficient tokens
 │   └── it should revert with ERC20 transfer error.
 ├── when quest is expired
-│   ├── it should process claim normally.
-│   └── it should not validate expiry in claim function.
+│   └── it should revert with QuestExpired.
+├── when quest expiry is zero (no end date)
+│   └── it should process claim normally.
 └── when all parameters are valid
     ├── it should verify EIP712 signature correctly.
     ├── it should call vault claimToken.
