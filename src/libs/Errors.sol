@@ -2,8 +2,10 @@
 pragma solidity 0.8.29;
 
 library Errors {
-    error UnacceptableAddress(address _address);
-    error UnacceptableId(string _id);
-    error UnacceptableReward(uint256 _reward);
-    error UnacceptableExpiry(uint32 _expiry);
+    error UnacceptableAddress(address address_);
+    error UnacceptableId(string id);
+    error UnacceptableReward(uint256 reward);
+    error UnacceptableExpiry(uint32 expiry);
+    error UnacceptableAmount(uint256 amount);
+    error UnacceptableSignature(bytes signature);
 }

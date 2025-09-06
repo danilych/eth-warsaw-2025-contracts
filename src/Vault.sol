@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.29;
 
-import { AccessControl } from "@openzeppelin/contracts/access/AccessControl.sol";
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import { Errors } from "./libs/Errors.sol";
-import { IVault } from "./interfaces/IVault.sol";
+import {Errors} from "./libs/Errors.sol";
+import {IVault} from "./interfaces/IVault.sol";
 
 /// @title Vault
 /// @author Danilych
@@ -19,7 +19,7 @@ contract Vault is AccessControl, IVault {
     /// @param token Token address.
     /// @param amount Amount of tokens.
     event ToppedUp(address indexed user, address indexed token, uint256 amount);
-    
+
     /// @notice Event emitted when a token is claimed.
     /// @param user User address.
     /// @param token Token address.
