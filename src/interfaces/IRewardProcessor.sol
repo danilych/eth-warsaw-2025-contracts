@@ -7,7 +7,7 @@
 pragma solidity 0.8.29;
 
 interface IRewardProcessor  {
-    function calculateReward(uint256 amount, bool has_bonus, bool has_strict_bonus) external view returns (uint256);
+    function calculateReward(uint256 amount, uint256 startsAt, uint256 expiry, bool has_bonus, bool has_strict_bonus) external view returns (uint256);
 
     function updateMultiplyFactor(uint256 new_factor) external;
 
