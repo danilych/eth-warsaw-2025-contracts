@@ -20,7 +20,7 @@ contract USDTScript is Script {
     function run() public {
         vm.startBroadcast();
 
-        rewardProcessor = IRewardProcessor(0xA6d0F9f9F25aE1A4a878D1b6345bb8fce836fd89);
+        rewardProcessor = IRewardProcessor(0x4BA7931cDc6cC5CAC70d804AAc6BF768B5133079);
 
         usdt = new USDT(msg.sender);
         usdt.mint(msg.sender, 1000000 ether);
