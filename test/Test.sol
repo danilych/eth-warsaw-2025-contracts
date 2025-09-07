@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.29;
 
-import { Test as ForgeTest } from "forge-std/Test.sol";
+import {Test as ForgeTest} from "forge-std/Test.sol";
 
 contract Test is ForgeTest {
     address internal alice = makeAddr("alice");

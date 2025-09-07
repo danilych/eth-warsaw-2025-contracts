@@ -60,7 +60,8 @@ contract QuestStorage is AccessControl, IQuestStorage {
 
         // TODO: revert if quest with given id already exists
 
-        quests[_id] = Types.Quest({id: _id, reward: _reward, rewardToken: _rewardToken, expiry: _expiry, startsAt: _startsAt});
+        quests[_id] =
+            Types.Quest({id: _id, reward: _reward, rewardToken: _rewardToken, expiry: _expiry, startsAt: _startsAt});
 
         emit QuestCreated(_id, _reward, _rewardToken, _expiry, _startsAt);
     }

@@ -23,10 +23,10 @@ contract Claimer is Ownable, EIP712 {
 
     /// @notice Vault contract, where tokens are stored.
     IVault public vault;
-    
+
     /// @notice QuestStorage contract, where quests are stored.
     IQuestStorage public questStorage;
-    
+
     /// @notice RewardProcessor contract, where rewards are calculated.
     IRewardProcessor public rewardProcessor;
 
@@ -37,22 +37,24 @@ contract Claimer is Ownable, EIP712 {
     /// @notice Event emitted when manager is updated.
     /// @param manager New manager address.
     event ManagerUpdated(address indexed manager);
-    
+
     /// @notice Event emitted when questStorage is updated.
     /// @param questStorage New questStorage address.
     event QuestStorageUpdated(address indexed questStorage);
-    
+
     /// @notice Event emitted when rewardProcessor is updated.
     /// @param rewardProcessor New rewardProcessor address.
     event RewardProcessorUpdated(address indexed rewardProcessor);
-    
+
     /// @notice Event emitted when a claim is made.
     /// @param questId Quest id.
     /// @param user User address.
     /// @param token Token address.
     /// @param amount Amount of tokens.
     /// @param timestamp Timestamp of the claim.
-    event Claimed(string indexed questId, address indexed user, address indexed token, uint256 amount, uint256 timestamp);
+    event Claimed(
+        string indexed questId, address indexed user, address indexed token, uint256 amount, uint256 timestamp
+    );
 
     /// @notice Constructor.
     /// @param initialOwner Initial owner address.
@@ -60,10 +62,13 @@ contract Claimer is Ownable, EIP712 {
     /// @param vault_ Vault contract.
     /// @param questStorage_ QuestStorage contract.
     /// @param rewardProcessor_ RewardProcessor contract.
-    constructor(address initialOwner, address manager_, IVault vault_, IQuestStorage questStorage_, IRewardProcessor rewardProcessor_)
-        Ownable(initialOwner)
-        EIP712("Claimer", "1")
-    {
+    constructor(
+        address initialOwner,
+        address manager_,
+        IVault vault_,
+        IQuestStorage questStorage_,
+        IRewardProcessor rewardProcessor_
+    ) Ownable(initialOwner) EIP712("Claimer", "1") {
         require(address(vault_) != address(0), Errors.UnacceptableAddress(address(vault_)));
         require(address(manager_) != address(0), Errors.UnacceptableAddress(address(manager_)));
         require(address(questStorage_) != address(0), Errors.UnacceptableAddress(address(questStorage_)));
@@ -122,12 +127,12 @@ contract Claimer is Ownable, EIP712 {
     function claim(string memory questId, bytes memory signature) external {
         Types.Quest memory quest = questStorage.getQuest(questId);
         require(bytes(quest.id).length > 0, Errors.UnacceptableId(questId));
-        
-        if(quest.expiry != 0) {
+
+        if (quest.expiry != 0) {
             require(quest.expiry > block.timestamp, Errors.QuestExpired(quest.id));
         }
-        
-        if(quest.startsAt != 0) {
+
+        if (quest.startsAt != 0) {
             require(quest.startsAt <= block.timestamp, Errors.QuestNotStarted(quest.id));
         }
 

@@ -9,7 +9,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract QuestStorageTest is Test {
     QuestStorage public questStorage;
     USDT public usdt;
-    
+
     // Test data
     string internal constant QUEST_ID = "550e8400-e29b-41d4-a716-446655440000";
     string internal constant EMPTY_QUEST_ID = "";
@@ -19,19 +19,19 @@ contract QuestStorageTest is Test {
 
     function fixture() public {
         vm.startPrank(deployer);
-        
+
         questStorage = new QuestStorage(deployer);
         usdt = new USDT(deployer);
-        
+
         // Set expiry to 1 hour in the future
         questExpiry = uint32(block.timestamp + 3600);
         // Set start time to current timestamp
         questStartsAt = uint32(block.timestamp);
-        
+
         // Grant MANAGER_ROLE to deployer for testing
         // deployer already has DEFAULT_ADMIN_ROLE from constructor
         questStorage.grantRole(questStorage.MANAGER_ROLE(), deployer);
-        
+
         vm.stopPrank();
     }
 

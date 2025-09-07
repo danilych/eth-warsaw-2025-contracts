@@ -6,8 +6,7 @@ import {USDT} from "src/samples/USDT.sol";
 import {Vault} from "src/Vault.sol";
 import {QuestStorage} from "src/QuestStorage.sol";
 import {Claimer} from "src/Claimer.sol";
-import { IRewardProcessor } from "src/interfaces/IRewardProcessor.sol";
-
+import {IRewardProcessor} from "src/interfaces/IRewardProcessor.sol";
 
 contract USDTScript is Script {
     USDT public usdt;
@@ -15,7 +14,6 @@ contract USDTScript is Script {
     QuestStorage public questStorage;
     Claimer public claimer;
     IRewardProcessor public rewardProcessor;
-    
 
     function run() public {
         vm.startBroadcast();
